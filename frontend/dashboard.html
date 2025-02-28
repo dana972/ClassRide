@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>/* Basic layout for the dashboard */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .dashboard-header {
+            width: 100%;
+            background-color: #4CAF50;
+            padding: 10px 0;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+        }
+        
+        .dashboard-main {
+            width: 80%;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .student-info {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        
+        .student-info label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .student-info input,
+        .student-info textarea {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+        
+        .student-info textarea {
+            height: 100px;
+        }
+        
+        .edit-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .edit-buttons button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        .edit-buttons button:hover {
+            background-color: #45a049;
+        }
+        
+        .delete-button {
+            background-color: #e74c3c;
+        }
+        
+        .delete-button:hover {
+            background-color: #c0392b;
+        }
+        </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <h2>ClassRide</h2>
+            <ul>
+                <li><a href="#" class="active">Dashboard</a></li>
+                <li><a href="#">Students</a></li>
+                <li><a href="#">Drivers</a></li>
+                <li><a href="#">Payments</a></li>
+                <li><a href="#">Schedules</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+        </nav>
+        
+        <main class="dashboard">
+            <header>
+                <h1>Admin Dashboard</h1>
+                <button id="logout">Logout</button>
+            </header>
+            
+            <section class="cards">
+                <div class="card">Students: <span>120</span></div>
+                <div class="card">Drivers: <span>15</span></div>
+                <div class="card">Buses: <span>8</span></div>
+                <div class="card">Revenue: <span>$12,500</span></div>
+            </section>
+        </main>
+    </div>
+    <script>// Get DOM elements
+        const studentInfoForm = document.querySelector('.student-info');
+        const editButtons = document.querySelector('.edit-buttons');
+        
+        // Dummy student data (replace this with actual data fetched from backend)
+        let studentData = {
+            name: "John Doe",
+            university: "University X",
+            location: "Campus A",
+            schedule: "Monday, Wednesday, Friday - 9 AM to 12 PM",
+            attendance: "85%",
+            paymentDetails: "Paid"
+        };
+        
+        // Initialize the dashboard with student data
+        function initDashboard() {
+            studentInfoForm.innerHTML = `
+                <label for="name">Name:</label>
+                <input type="text" id="name" value="${studentData.name}" disabled>
+        
+                <label for="university">University:</label>
+                <input type="text" id="university" value="${studentData.university}" disabled>
+        
+                <label for="location">Location:</label>
+                <input type="text" id="location" value="${studentData.location}" disabled>
+        
+                <label for="schedule">Schedule:</label>
+                <textarea id="schedule" disabled>${studentData.schedule}</textarea>
+        
+                <label for="attendance">Attendance:</label>
+                <input type="text" id="attendance" value="${studentData.attendance}" disabled>
+        
+                <label for="payment-details">Payment Details:</label>
+                <input type="text" id="payment-details" value="${studentData.paymentDetails}" disabled>
+            `;
+        }
+        
+        // Handle edit button click to enable input fields
+        function enableEdit() {
+            document.querySelectorAll('input, textarea').forEach(field => {
+                field.disabled = false;
+            });
+            editButtons.innerHTML = `
+                <button onclick="saveChanges()">Save</button>
+                <button class="delete-button" onclick="deleteStudent()">Delete</button>
+            `;
+        }
+        
+        // Save changes after editing
+        function saveChanges() {
+            studentData.name = document.getElementById('name').value;
+            studentData.university = document.getElementById('university').value;
+            studentData.location = document.getElementById('location').value;
+            studentData.schedule = document.getElementById('schedule').value;
+            studentData.attendance = document.getElementById('attendance').value;
+            studentData.paymentDetails = document.getElementById('payment-details').value;
+        
+            alert('Changes saved!');
+            initDashboard(); // Refresh the dashboard with updated data
+        }
+        
+        // Delete student record (confirmation prompt for deletion)
+        function deleteStudent() {
+            if (confirm('Are you sure you want to delete your account?')) {
+                // Perform deletion logic (e.g., send a delete request to the backend)
+                alert('Account deleted!');
+            }
+        }
+        
+        // Initialize the dashboard on page load
+        window.onload = initDashboard;
+        
+        // Add event listener to the edit button
+        document.querySelector('.edit-buttons button').addEventListener('click', enableEdit);
+        </script>
+</body>
+</html>
