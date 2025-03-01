@@ -61,8 +61,17 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
 
     if (response.ok) {
       alert("Login successful!");
-      localStorage.setItem("ownerName", data.name); // Store owner name
-      window.location.href = "dashboard.html"; // Redirect to the dashboard
+
+      // Check the role and redirect accordingly
+      if (data.role === "owner") {
+        localStorage.setItem("ownerName", data.name); // Store owner name
+        window.location.href = "owner-dashboard.html"; // Redirect to the owner dashboard
+      } else if (data.role === "driver") {
+        localStorage.setItem("driverName", data.name); // Store driver name
+        window.location.href = "driver.html"; // Redirect to the driver dashboard
+      } else {
+        alert("Role not recognized.");
+      }
     } else {
       alert(data.message);
     }
