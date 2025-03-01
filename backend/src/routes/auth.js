@@ -6,7 +6,7 @@ const router = express.Router();
 // Signup Route
 router.post("/signup", async (req, res) => {
     try {
-        const { name, phone, password } = req.body;
+        const { name, phone, password, role = "owner" } = req.body; // Default role: owner
 
         // Check if user already exists
         const userExists = await pool.query("SELECT * FROM users WHERE phone = $1", [phone]);
@@ -18,10 +18,10 @@ router.post("/signup", async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Insert new user
+        // Insert new user with role
         const newUser = await pool.query(
-            "INSERT INTO users (name, phone, password) VALUES ($1, $2, $3) RETURNING *",
-            [name, phone, hashedPassword]
+            "INSERT INTO users (name, phone, password, role) VALUES ($1, $2, $3, $4) RETURNING user_id, name, phone, role",
+            [name, phone, hashedPassword, role]
         );
 
         res.status(201).json({ message: "User registered successfully", user: newUser.rows[0] });
@@ -31,6 +31,7 @@ router.post("/signup", async (req, res) => {
         res.status(500).json({ message: "Server error" });
     }
 });
+
 // Login Route
 router.post("/login", async (req, res) => {
     try {
@@ -48,7 +49,13 @@ router.post("/login", async (req, res) => {
             return res.status(400).json({ message: "Invalid credentials" });
         }
 
-        res.status(200).json({ message: "Login successful", user: user.rows[0] });
+        // Send user details, including role
+        res.status(200).json({
+            message: "Login successful",
+            id: user.rows[0].user_id,
+            name: user.rows[0].name,
+            role: user.rows[0].role,
+        });
 
     } catch (err) {
         console.error(err.message);

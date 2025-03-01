@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bus Location Tracker</title>
+    <script>
+        function sendLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.watchPosition(position => {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    
+                    fetch("https://your-backend.com/api/update-location", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            bus_id: "BUS123",
+                            latitude: latitude,
+                            longitude: longitude
+                        })
+                    });
+                }, error => {
+                    console.error("Error getting location", error);
+                }, { enableHighAccuracy: true });
+            } else {
+                alert("Geolocation is not supported by your browser.");
+            }
+        }
+    </script>
+</head>
+<body onload="sendLocation()">
+    <h2>Tracking Bus Location...</h2>
+</body>
+</html>

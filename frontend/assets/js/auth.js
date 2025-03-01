@@ -10,6 +10,7 @@ loginBtn.addEventListener("click", () => {
   container.classList.remove("active");
 });
 
+
 // Signup form functionality
 document.getElementById("signup-form").addEventListener("submit", async (e) => {
   e.preventDefault(); // Prevent form from refreshing the page
@@ -42,17 +43,12 @@ document.getElementById("signup-form").addEventListener("submit", async (e) => {
     console.error("Signup error:", error);
   }
 });
-
 // Login form functionality
 document.getElementById("login-form").addEventListener("submit", async (e) => {
-  e.preventDefault(); // Prevent form from refreshing the page
+  e.preventDefault();
 
   const phone = document.getElementById("login-phone").value;
   const password = document.getElementById("login-password").value;
-
-  console.log("Submitting login form..."); // Debugging log
-  console.log("Phone:", phone);
-  console.log("Password:", password);
 
   try {
     const response = await fetch("http://localhost:5000/auth/login", {
@@ -62,11 +58,11 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
     });
 
     const data = await response.json();
-    console.log("Login response:", data); // Debugging log
 
     if (response.ok) {
       alert("Login successful!");
-      // Redirect or store session data if needed
+      localStorage.setItem("ownerName", data.name); // Store owner name
+      window.location.href = "dashboard.html"; // Redirect to the dashboard
     } else {
       alert(data.message);
     }
