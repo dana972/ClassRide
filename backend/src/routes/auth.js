@@ -3,10 +3,17 @@ const bcrypt = require("bcryptjs");
 const pool = require("../config/db"); // Database connection
 const router = express.Router();
 
+
 // Signup Route
-exports.signup = async (req, res) => {
+router.post("/signup", async (req, res) => {
   try {
-    const { phone, password } = req.body;
+    console.log("Signup request received:", req.body);
+
+    const { name, phone, password } = req.body; // Ensure `name` is included
+
+    if (!name || !phone || !password) {
+      return res.status(400).json({ message: "Name, phone, and password are required" });
+    }
 
     // Check if user exists
     const result = await pool.query("SELECT * FROM users WHERE phone = $1", [phone]);
@@ -18,17 +25,16 @@ exports.signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Insert user into database
-    const query = `
-      INSERT INTO users (phone, password, role)
-      VALUES ($1, $2, 'student')`;  // Set role explicitly to 'student'
-
-    await pool.query(query, [phone, hashedPassword]);
+    await pool.query("INSERT INTO users (name, phone, password, role) VALUES ($1, $2, $3, 'student')", [
+      name, phone, hashedPassword,
+    ]);
 
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
+    console.error("Signup Error:", error.message);
     res.status(500).json({ message: "Server error", error: error.message });
   }
-};
+});
 
 // Login Route
 router.post("/login", async (req, res) => {
