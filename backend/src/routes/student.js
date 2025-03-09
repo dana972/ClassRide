@@ -1,7 +1,10 @@
 const express = require("express");
 const pool = require("../config/db");
 const router = express.Router();
+const studentController = require("../controllers/studentController");
 
+// Update student info by phone number
+router.put("/:phone", studentController.updateStudent);
 // Get Student Info by phone
 router.get("/:phone", async (req, res) => {
     try {

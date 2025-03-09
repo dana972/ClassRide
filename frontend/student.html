@@ -1,19 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard</title>
 </head>
 <body>
-    <h1>Welcome, <span id="studentName"></span></h1>
-    <p>University: <span id="university"></span></p>
-    <p>Location: <span id="location"></span></p>
-    <p>Schedule: <span id="schedule"></span></p>
-    <p>Attendance: <span id="attendance"></span></p>
-    <p>Payment Status: <span id="paymentStatus"></span></p>
-    <p id="error-message" style="color: red;"></p>
 
-    <script src="assets/js/student.js"></script> <!-- Link to JavaScript -->
+  <h1>Student Information</h1>
+
+  <!-- Display student information -->
+  <div id="student-info">
+    <p><strong>Name:</strong> <span id="student-name"></span></p>
+    <p><strong>University:</strong> <span id="student-university"></span></p>
+    <p><strong>Location:</strong> <span id="student-location"></span></p>
+    <p><strong>Schedule:</strong> <span id="student-schedule"></span></p>
+    <p><strong>Attendance:</strong> <span id="student-attendance"></span></p>
+    <p><strong>Phone:</strong> <span id="student-phone"></span></p>
+
+    <!-- Edit button -->
+    <button id="edit-btn">Edit</button>
+  </div>
+
+  <!-- Edit Form (Initially hidden) -->
+  <div id="edit-form" style="display:none;">
+    <h3>Edit Student Info</h3>
+    <form id="edit-student-form">
+      <label>Name:</label><br>
+      <input type="text" id="edit-name" /><br>
+      <label>University:</label><br>
+      <input type="text" id="edit-university" /><br>
+      <label>Location:</label><br>
+      <input type="text" id="edit-location" /><br>
+      <label>Schedule:</label><br>
+      <input type="text" id="edit-schedule" /><br>
+      <label>Attendance:</label><br>
+      <input type="text" id="edit-attendance" /><br><br>
+      <button type="submit">Save Changes</button>
+      <button type="button" id="cancel-edit">Cancel</button>
+    </form>
+  </div>
+
+  <script src="../frontend/assets/js/student.js"></script>
 </body>
 </html>
