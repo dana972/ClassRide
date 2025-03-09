@@ -6,34 +6,34 @@ const Student = {
     return result.rows;
   },
 
-  getById: async (id) => {
-    const result = await db.query('SELECT * FROM students WHERE id = $1', [id]);
+  getByPhone: async (phone) => {
+    const result = await db.query('SELECT * FROM students WHERE phone = $1', [phone]);
     return result.rows[0];
   },
 
   create: async (studentData) => {
-    const { name, university, location, schedule, attendance, payment_details } = studentData;
+    const { name, university, location, schedule, attendance, phone } = studentData;
     const result = await db.query(
-      `INSERT INTO students (name, university, location, schedule, attendance, payment_details)
+      `INSERT INTO students (name, university, location, schedule, attendance, phone)
        VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-      [name, university, location, schedule, attendance, payment_details]
+      [name, university, location, schedule, attendance, phone]
     );
     return result.rows[0];
   },
 
-  update: async (id, studentData) => {
-    const { name, university, location, schedule, attendance, payment_details } = studentData;
+  update: async (phone, studentData) => {
+    const { name, university, location, schedule, attendance } = studentData;
     const result = await db.query(
       `UPDATE students 
-       SET name = $1, university = $2, location = $3, schedule = $4, attendance = $5, payment_details = $6 
-       WHERE id = $7 RETURNING *`,
-      [name, university, location, schedule, attendance, payment_details, id]
+       SET name = $1, university = $2, location = $3, schedule = $4, attendance = $5 
+       WHERE phone = $6 RETURNING *`,
+      [name, university, location, schedule, attendance, phone]
     );
     return result.rows[0];
   },
 
-  delete: async (id) => {
-    await db.query('DELETE FROM students WHERE id = $1', [id]);
+  delete: async (phone) => {
+    await db.query('DELETE FROM students WHERE phone = $1', [phone]);
     return { message: 'Student deleted successfully' };
   }
 };
