@@ -39,46 +39,32 @@
       background-color: #fafafa;
     }
 
+    .edit-input {
+      width: 100%;
+      padding: 5px;
+      display: none;
+    }
+
+    .edit-buttons {
+      display: none;
+    }
+
     button {
-      padding: 10px 15px;
-      margin-top: 10px;
+      padding: 5px 10px;
       cursor: pointer;
+      margin-right: 5px;
+    }
+
+    .save-btn {
       background-color: #4CAF50;
       color: white;
       border: none;
-      border-radius: 5px;
     }
 
-    button:hover {
-      background-color: #45a049;
-    }
-
-    #edit-form {
-      margin-top: 20px;
-      display: none;
-      border: 1px solid #ddd;
-      padding: 20px;
-      background-color: #f9f9f9;
-    }
-
-    label {
-      font-weight: bold;
-    }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 8px;
-      margin: 5px 0 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-
-    #cancel-edit {
+    .cancel-btn {
       background-color: #f44336;
-    }
-
-    #cancel-edit:hover {
-      background-color: #d32f2f;
+      color: white;
+      border: none;
     }
 
     #logout-btn {
@@ -91,66 +77,60 @@
       border: none;
       border-radius: 5px;
     }
-
-    #logout-btn:hover {
-      background-color: #d32f2f;
-    }
   </style>
 </head>
 <body>
-
   <h1>Student Information</h1>
-
-  <!-- Display student information in table -->
   <table>
     <tr>
       <th>Name</th>
-      <td><span id="student-name"></span></td>
+      <td>
+        <span class="view" id="student-name"></span>
+        <input type="text" class="edit-input" id="edit-name" />
+      </td>
     </tr>
     <tr>
       <th>University</th>
-      <td><span id="student-university"></span></td>
+      <td>
+        <span class="view" id="student-university"></span>
+        <input type="text" class="edit-input" id="edit-university" />
+      </td>
     </tr>
     <tr>
       <th>Location</th>
-      <td><span id="student-location"></span></td>
+      <td>
+        <span class="view" id="student-location"></span>
+        <input type="text" class="edit-input" id="edit-location" />
+      </td>
     </tr>
     <tr>
       <th>Schedule</th>
-      <td><span id="student-schedule"></span></td>
+      <td>
+        <span class="view" id="student-schedule"></span>
+        <input type="text" class="edit-input" id="edit-schedule" />
+      </td>
     </tr>
     <tr>
       <th>Attendance</th>
-      <td><span id="student-attendance"></span></td>
+      <td>
+        <span class="view" id="student-attendance"></span>
+        <input type="text" class="edit-input" id="edit-attendance" />
+      </td>
     </tr>
     <tr>
       <th>Phone</th>
-      <td><span id="student-phone"></span></td>
+      <td>
+        <span id="student-phone"></span>
+      </td>
     </tr>
   </table>
 
-  <!-- Edit button -->
   <button id="edit-btn">Edit</button>
+  <div class="edit-buttons">
+    <button class="save-btn">Save</button>
+    <button class="cancel-btn">Cancel</button>
+  </div>
 
-  <!-- Edit Form (Initially hidden) -->
-  <div id="edit-form">
-    <h3>Edit Student Info</h3>
-    <form id="edit-student-form">
-      <label>Name:</label><br>
-      <input type="text" id="edit-name" /><br>
-      <label>University:</label><br>
-      <input type="text" id="edit-university" /><br>
-      <label>Location:</label><br>
-      <input type="text" id="edit-location" /><br>
-      <label>Schedule:</label><br>
-      <input type="text" id="edit-schedule" /><br>
-      <label>Attendance:</label><br>
-      <input type="text" id="edit-attendance" /><br><br>
-      <button type="submit">Save Changes</button>
-      <button type="button" id="cancel-edit">Cancel</button>
-    </form>
   <script src="../frontend/assets/js/student.js"></script>
-
-</body>  
-
+</body>
 </html>

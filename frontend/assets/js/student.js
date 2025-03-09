@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async () => {
     // Check if user is logged in by verifying phone and role in localStorage
-    const phone = localStorage.getItem("userPhone"); // Use 'userPhone' to match your login storage key
+    const phone = localStorage.getItem("userPhone");
     const role = localStorage.getItem("userRole");
 
     if (!phone || !role) {
@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
-    let data; // Declare the data variable here to be used in the whole function
+    let data;
 
     try {
         // Fetch student data if logged in
@@ -20,91 +20,51 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         data = await response.json();
-        console.log("Student data fetched:", data); // Debugging
+        console.log("Student data fetched:", data);
 
-        // Display student info
-        document.getElementById("student-name").innerText = data.name;
-        document.getElementById("student-university").innerText = data.university;
-        document.getElementById("student-location").innerText = data.location;
-        document.getElementById("student-schedule").innerText = data.schedule;
-        document.getElementById("student-attendance").innerText = data.attendance;
-        document.getElementById("student-phone").innerText = data.phone;
+        // Display student info inside editable fields
+        const fields = ["name", "university", "location", "schedule", "attendance", "phone"];
+        fields.forEach(field => {
+            const spanElement = document.getElementById(`student-${field}`);
+            spanElement.innerHTML = `<input type='text' id='edit-${field}' value='${data[field]}' disabled>`;
+        });
 
         // Edit button functionality
         const editButton = document.getElementById("edit-btn");
-        const editForm = document.getElementById("edit-form");
-        const cancelButton = document.getElementById("cancel-edit");
-
-        // Show the form when "Edit" is clicked
         editButton.addEventListener("click", () => {
-            // Ensure the latest data is displayed in the form
-            document.getElementById("edit-name").value = data.name;
-            document.getElementById("edit-university").value = data.university;
-            document.getElementById("edit-location").value = data.location;
-            document.getElementById("edit-schedule").value = data.schedule;
-            document.getElementById("edit-attendance").value = data.attendance;
-            editForm.style.display = "block";
+            fields.forEach(field => {
+                document.getElementById(`edit-${field}`).disabled = false;
+            });
+            editButton.style.display = "none";
+            saveButton.style.display = "inline-block";
+            cancelButton.style.display = "inline-block";
         });
 
-        // Hide the form if "Cancel" is clicked
-        cancelButton.addEventListener("click", () => {
-            editForm.style.display = "none";
-        });
-
-        // Handle form submission to update student
-        const editStudentForm = document.getElementById("edit-student-form");
-
-        editStudentForm.addEventListener("submit", async (event) => {
-            event.preventDefault();
-
-            const updatedData = {
-                name: document.getElementById("edit-name").value,
-                university: document.getElementById("edit-university").value,
-                location: document.getElementById("edit-location").value,
-                schedule: document.getElementById("edit-schedule").value,
-                attendance: document.getElementById("edit-attendance").value
-            };
+        // Save button functionality
+        const saveButton = document.createElement("button");
+        saveButton.textContent = "Save";
+        saveButton.style.display = "none";
+        saveButton.addEventListener("click", async () => {
+            const updatedData = {};
+            fields.forEach(field => {
+                updatedData[field] = document.getElementById(`edit-${field}`).value;
+            });
 
             try {
                 const updateResponse = await fetch(`http://localhost:5000/students/${phone}`, {
                     method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Cache-Control': 'no-cache' // Avoid caching
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(updatedData)
                 });
 
                 if (updateResponse.ok) {
-                    const updatedStudent = await updateResponse.json();
-                    console.log("Updated student data:", updatedStudent); // Debugging
-
                     alert('Student info updated successfully!');
-
-                    // Re-fetch the data to ensure it's up-to-date
-                    const refreshedResponse = await fetch(`http://localhost:5000/students/${phone}`);
-                    data = await refreshedResponse.json(); // Update the data variable to reflect the latest data
-                    console.log("Refreshed student data:", data); // Debugging
-                    // Dynamically update the displayed student info on the page
-                    document.getElementById("student-name").innerText = data.name;
-                    document.getElementById("student-university").innerText = data.university;
-                    document.getElementById("student-location").innerText = data.location;
-                    document.getElementById("student-schedule").innerText = data.schedule;
-                    document.getElementById("student-attendance").innerText = data.attendance;
-
-                    // Optionally, you can also update the form fields as well (if desired)
-                    document.getElementById("edit-name").value = data.name;
-                    document.getElementById("edit-university").value = data.university;
-                    document.getElementById("edit-location").value = data.location;
-                    document.getElementById("edit-schedule").value = data.schedule;
-                    document.getElementById("edit-attendance").value = data.attendance;
-
-                    // Hide the edit form
-                    editForm.style.display = "none";
-
-                    // Store the updated data back to localStorage if needed
-                    localStorage.setItem("userPhone", updatedStudent.phone); // Update phone in localStorage if necessary
-                    localStorage.setItem("userRole", updatedStudent.role); // Update role if necessary
+                    editButton.style.display = "inline-block";
+                    saveButton.style.display = "none";
+                    cancelButton.style.display = "none";
+                    fields.forEach(field => {
+                        document.getElementById(`edit-${field}`).disabled = true;
+                    });
                 } else {
                     throw new Error('Failed to update student');
                 }
@@ -113,7 +73,22 @@ document.addEventListener("DOMContentLoaded", async () => {
                 alert("Failed to update student info");
             }
         });
+        document.body.appendChild(saveButton);
 
+        // Cancel button functionality
+        const cancelButton = document.createElement("button");
+        cancelButton.textContent = "Cancel";
+        cancelButton.style.display = "none";
+        cancelButton.addEventListener("click", () => {
+            fields.forEach(field => {
+                document.getElementById(`edit-${field}`).value = data[field];
+                document.getElementById(`edit-${field}`).disabled = true;
+            });
+            editButton.style.display = "inline-block";
+            saveButton.style.display = "none";
+            cancelButton.style.display = "none";
+        });
+        document.body.appendChild(cancelButton);
     } catch (error) {
         console.error("Error:", error);
         alert("Failed to load student info");
