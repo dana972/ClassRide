@@ -4,26 +4,136 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Student Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      position: relative;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    td {
+      background-color: #fafafa;
+    }
+
+    button {
+      padding: 10px 15px;
+      margin-top: 10px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #edit-form {
+      margin-top: 20px;
+      display: none;
+      border: 1px solid #ddd;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    #cancel-edit {
+      background-color: #f44336;
+    }
+
+    #cancel-edit:hover {
+      background-color: #d32f2f;
+    }
+
+    #logout-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 10px 15px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    #logout-btn:hover {
+      background-color: #d32f2f;
+    }
+  </style>
 </head>
 <body>
 
   <h1>Student Information</h1>
 
-  <!-- Display student information -->
-  <div id="student-info">
-    <p><strong>Name:</strong> <span id="student-name"></span></p>
-    <p><strong>University:</strong> <span id="student-university"></span></p>
-    <p><strong>Location:</strong> <span id="student-location"></span></p>
-    <p><strong>Schedule:</strong> <span id="student-schedule"></span></p>
-    <p><strong>Attendance:</strong> <span id="student-attendance"></span></p>
-    <p><strong>Phone:</strong> <span id="student-phone"></span></p>
+  <!-- Display student information in table -->
+  <table>
+    <tr>
+      <th>Name</th>
+      <td><span id="student-name"></span></td>
+    </tr>
+    <tr>
+      <th>University</th>
+      <td><span id="student-university"></span></td>
+    </tr>
+    <tr>
+      <th>Location</th>
+      <td><span id="student-location"></span></td>
+    </tr>
+    <tr>
+      <th>Schedule</th>
+      <td><span id="student-schedule"></span></td>
+    </tr>
+    <tr>
+      <th>Attendance</th>
+      <td><span id="student-attendance"></span></td>
+    </tr>
+    <tr>
+      <th>Phone</th>
+      <td><span id="student-phone"></span></td>
+    </tr>
+  </table>
 
-    <!-- Edit button -->
-    <button id="edit-btn">Edit</button>
-  </div>
+  <!-- Edit button -->
+  <button id="edit-btn">Edit</button>
 
   <!-- Edit Form (Initially hidden) -->
-  <div id="edit-form" style="display:none;">
+  <div id="edit-form">
     <h3>Edit Student Info</h3>
     <form id="edit-student-form">
       <label>Name:</label><br>
@@ -39,8 +149,8 @@
       <button type="submit">Save Changes</button>
       <button type="button" id="cancel-edit">Cancel</button>
     </form>
-  </div>
-
   <script src="../frontend/assets/js/student.js"></script>
-</body>
+
+</body>  
+
 </html>

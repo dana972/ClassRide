@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
+    let data; // Declare the data variable here to be used in the whole function
+
     try {
         // Fetch student data if logged in
         const response = await fetch(`http://localhost:5000/students/${phone}`);
@@ -17,7 +19,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             throw new Error('Failed to load student data');
         }
 
-        const data = await response.json();
+        data = await response.json();
         console.log("Student data fetched:", data); // Debugging
 
         // Display student info
@@ -35,6 +37,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // Show the form when "Edit" is clicked
         editButton.addEventListener("click", () => {
+            // Ensure the latest data is displayed in the form
             document.getElementById("edit-name").value = data.name;
             document.getElementById("edit-university").value = data.university;
             document.getElementById("edit-location").value = data.location;
@@ -80,22 +83,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                     // Re-fetch the data to ensure it's up-to-date
                     const refreshedResponse = await fetch(`http://localhost:5000/students/${phone}`);
-                    const refreshedData = await refreshedResponse.json();
-                    console.log("Refreshed student data:", refreshedData); // Debugging
-
+                    data = await refreshedResponse.json(); // Update the data variable to reflect the latest data
+                    console.log("Refreshed student data:", data); // Debugging
                     // Dynamically update the displayed student info on the page
-                    document.getElementById("student-name").innerText = refreshedData.name;
-                    document.getElementById("student-university").innerText = refreshedData.university;
-                    document.getElementById("student-location").innerText = refreshedData.location;
-                    document.getElementById("student-schedule").innerText = refreshedData.schedule;
-                    document.getElementById("student-attendance").innerText = refreshedData.attendance;
+                    document.getElementById("student-name").innerText = data.name;
+                    document.getElementById("student-university").innerText = data.university;
+                    document.getElementById("student-location").innerText = data.location;
+                    document.getElementById("student-schedule").innerText = data.schedule;
+                    document.getElementById("student-attendance").innerText = data.attendance;
 
                     // Optionally, you can also update the form fields as well (if desired)
-                    document.getElementById("edit-name").value = refreshedData.name;
-                    document.getElementById("edit-university").value = refreshedData.university;
-                    document.getElementById("edit-location").value = refreshedData.location;
-                    document.getElementById("edit-schedule").value = refreshedData.schedule;
-                    document.getElementById("edit-attendance").value = refreshedData.attendance;
+                    document.getElementById("edit-name").value = data.name;
+                    document.getElementById("edit-university").value = data.university;
+                    document.getElementById("edit-location").value = data.location;
+                    document.getElementById("edit-schedule").value = data.schedule;
+                    document.getElementById("edit-attendance").value = data.attendance;
 
                     // Hide the edit form
                     editForm.style.display = "none";
