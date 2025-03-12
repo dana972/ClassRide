@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClassRide</title>
+    
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;900&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"> 
+    
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Libraries Stylesheet -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid sticky-top px-0">
+        <nav class="navbar navbar-expand-lg navbar-dark  py-3 px-4">
+            <a href="index.html" class="navbar-brand p-0">
+                <h1 class="text-secondary display-6"><i class="fas fa-bus text-primary me-3"></i>ClassRide</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto pt-2 pt-lg-0">
+                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="about.html" class="nav-item nav-link">About Us</a>
+                    <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+                    <a href="#" class="btn btn-secondary py-2 px-4 ms-3">Login <i class="fas fa-user text-white me-2"></i></a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+    
+    <!-- Slideshow Start -->
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="assets/img/student.png" class="d-block w-100" alt="Slide 1">
+                <div class="carousel-caption d-flex flex-column align-items-center">
+                    <button class="go-btn">
+                       Go <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="assets/img/driver (1).png" class="d-block w-100" alt="Slide 2">
+                <div class="carousel-caption d-flex flex-column align-items-center">
+                    <button class="go-btn">
+                       Go <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="assets/img/owner (2).png" class="d-block w-100" alt="Slide 3">
+                <div class="carousel-caption d-flex flex-column align-items-center">
+                    <button class="go-btn">
+                       Go <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="assets/img/welcome.png" class="d-block w-100" alt="Slide 4">
+                <div class="carousel-caption d-flex flex-column align-items-center">
+                    <button class="go-btn">
+                       Go <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+    <!-- Slideshow End -->
+    
+    <a href="#" class="btn btn-secondary btn-lg-square back-to-top"><i class="fa fa-arrow-up"></i></a>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var navbar = document.querySelector(".navbar");
+        
+            window.addEventListener("scroll", function() {
+                if (window.scrollY > 50) { // Adjust scroll trigger
+                    navbar.classList.add("scrolled");
+                } else {
+                    navbar.classList.remove("scrolled");
+                }
+            });
+        });
+        </script>
+        
+        
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

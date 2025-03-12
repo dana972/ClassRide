@@ -1,18 +1,29 @@
-:root {
-    --primary-dark: #121435;
-    --light-bg: #FAF9F0;
-    --accent-light: #EDEBCA;
-    --highlight: #FF5722;
-    --white: #ffffff;
+
+/*** Navbar ***/
+.sticky-top {
+    transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
 }
 
+.navbar.scrolled {
+    background-color: #121435 !important; /* Dark background */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow */
+}
 
-.back-to-top {
-    position: fixed;
-    right: 30px;
-    bottom: 30px;
-    transition: 0.5s;
-    z-index: 99;
+.navbar.scrolled .nav-link,
+.navbar.scrolled .btn
+ {
+    color: #EDEBCA !important; /* Light Accent color */
+}
+.navbar.scrolled .fa-bus{
+    color: #EDEBCA !important; /* Light Accent color */
+}
+.navbar.scrolled .btn {
+    border-color: #EDEBCA;
+}
+
+.navbar.scrolled .btn:hover {
+    background-color: #EDEBCA;
+    color: #121435 !important; /* Dark text on hover */
 }
 
 /*** Button Start ***/
@@ -75,18 +86,14 @@
 .btn.btn-secondary:hover {
     background: var(--bs-primary);
 }
-/*** Topbar Start ***/
-.topbar {
-    padding: 2px 10px 2px 20px;
-    background: var(--bs-primary);
-}
-/*** Topbar End ***/
 
-/*** Navbar ***/
-.sticky-top {
-    transition: 1s;
+.back-to-top {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    transition: 0.5s;
+    z-index: 99;
 }
-
 
 .navbar .navbar-nav .nav-item.nav-link,
 .navbar .navbar-nav .nav-link {
@@ -238,26 +245,64 @@
     }
 }
 
-#searchModal .modal-content {
-    background: rgba(255, 255, 255, .6);
-}
+
 /*** Navbar End ***/
 
-/*** Single Page Hero Header Start ***/
-.bg-breadcrumb {
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(rgba(0, 18, 72, 0.7), rgba(0, 18, 72, 0.7)), url(../img/carousel-2.jpg);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding: 60px 0 60px 0;
+
+.carousel-control-prev, .carousel-control-next {
+    width: 5%; /* Adjust the width if needed */
+    opacity: 1; /* Ensure they are fully visible */
 }
 
-.bg-breadcrumb .breadcrumb {
-    position: relative;
+/* Make the prev/next arrows black and remove background */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: transparent !important; /* Remove grey background */
+    filter: brightness(0); /* Make icons black */
 }
 
-.bg-breadcrumb .breadcrumb .breadcrumb-item a {
-    color: var(--bs-white);
+/* Optional: Adjust icon size if needed */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%; /* Adjust width if necessary */
+}
+/* Style for "Go" button */
+.go-btn {
+    background-color: #121435; /* Highlight color */
+    color: white;
+    border: none;
+    padding: 15px 30px; /* Bigger button */
+    font-size: 24px; /* Larger text */
+    font-weight: bold;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between icon and text */
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+/* Hover effect */
+.go-btn:hover {
+    background-color: #E64A19;
+}
+
+/* Centering inside carousel */
+.carousel-caption {
+    position: absolute;
+    top: 53%;  /* Move higher towards the center */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .go-btn {
+        font-size: 18px;
+        padding: 12px 24px;
+    }
+    .carousel-caption {
+        top: 45%; /* Adjust for smaller screens */
+    }
 }
